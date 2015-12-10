@@ -1,2 +1,128 @@
-Project on code.google.com/p/accounting-123 
-I need to figure out if it needs to be on github... :)
+
+**********************************
+Welcome to Accounting-123.com
+Licensed GPL v3 by  Andre Coetzee
+This was Cubit --> support@cubit.co.za
+*********************************
+
+README: Installation 
+Ubuntu Linux Installation of Accounting-123
+FOR USE IN A REAL COMPANY OR PRODUCTION ENVIRONMENT
+USE WITH PHP 5.2 - IF ON 5.3 SEE THE DOWNGRADE
+SCRIPT IN THE resources DIRECTORY
+-----------------------------------
+
+On clean install of Ubuntu:
+
+1) First setup firewall:
+
+      apt-get install ufw
+      ufw allow 22
+      ufw allow 80
+      ufw enable
+
+
+2) Install Apache2 with Php5 and PostgreSQL:
+
+      apt-get install postgresql php5 php5-pgsql apache2
+
+3) Install Dialog and other useful programs
+      apt-get install dialog
+      apt-get install bison
+      apt-get install flex
+ 
+     
+4) Configure PostgreSQL to trust local connections
+      (i)  cd /etc/postgresql/8.4/main/
+      (ii) vi pg_hba.conf
+      (iii)
+      At the bottom of the file add # to everything below:
+      # TYPE  DATABASE    USER        CIDR-ADDRESS          METHOD
+
+      Then Add:
+      local   all         all                               trust
+      # IPv4 local connections:
+      host    all         all         127.0.0.1/32          trust
+      # IPv6 local connections:
+      host    all         all         ::1/128               trust
+
+      (iv)
+      Then restart PostgreSQL:
+      /etc/init.d/postgresql restart
+
+      (v)
+      Test Postgres to see if everything is fine:
+      psql -U postgres template1
+
+      If you can connect to template1 then type \q  and press enter
+      If you cannot connect to template1 then chack everything from (i) again
+
+
+5) Configure Apache
+      (i)
+      vi /etc/apache2/sites-available/default
+      change the Documentroot to your Documentroot
+      eg: DocumentRoot /var/www/accounting-123/htdocs
+
+      (ii)
+      Then restart Apache2:
+      /etc/init.d/apache2 restart
+
+
+6) Execute the Accounting-123 install script:
+    
+      ./installacc.sh
+
+
+7.) Changes to /etc/php5/cli/php.ini
+          precision = 14  --> precision = 20
+          max_execution_time = 30 --> max_execution_time = 300
+          variables_order = "GPCS" --> variables_order = "EGPCS"
+          request_order = "GP" --> request_order = "GPCS" 
+          register_long_arrays = Off --> register_long_arrays = On
+          register_argc_argv = Off --> register_argc_argv = On
+          magic_quotes_gpc = Off --> magic_quotes_gpc = On
+          upload_max_filesize = 2M --> upload_max_filesize = 8M
+          
+
+8.) Do something nice for yourself today :)
+
+
+********************************************************
+
+
+Contributed by Jean:
+ACCOUNTING-123.com -- INSTALLATION FAQ
+
+
+Dependancies
+
+Make sure that the following software is installed on your system:
+
+1. Apache
+2. php
+3. PostgreSQL
+4. dialog
+5. readline and readline-dev
+6. bison
+7. flex
+8. GD
+8. tar, zlib, gunzip, bash
+
+
+OTHER COMMON PROBLEMS:
+
+Check that php5.2 is installed and working on your system
+Change the installacc.sh script name of your apache user if not called nobody
+Check and change your Apache Document Root if required
+Check and change your path to console php or create av symlink:
+cd /usr/bin and then -> ln -s /usr/whereveryourphpis/php php
+
+You can check sample config files in the installation directory
+(for php.ini and apache conf and postgres conf)
+
+
+If create_db.php doesn't load with an error involving the database,
+make sure your postgresql setup is correct.
+You can check this by going to the postgresql data directory and making
+sure your permissions is correctly setup in pg_hba.conf

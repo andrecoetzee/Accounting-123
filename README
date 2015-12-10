@@ -2,14 +2,22 @@
 **********************************
 Welcome to Accounting-123.com
 Licensed GPL v3 by  Andre Coetzee
+All Copyright reserved by Andre Coetzee
 This was Cubit --> support@cubit.co.za
+Cubit Accounting Software started developing 
+this system and source code in 2000 
+and concluded in 2009
+No Software patents were registered, but for the record,
+there were various patents registered for which CUBIT has PRIOR ART!
+LONG after the Cubit Source code was published, in public from 2001 onwards.
 *********************************
 
 README: Installation 
 Ubuntu Linux Installation of Accounting-123
 FOR USE IN A REAL COMPANY OR PRODUCTION ENVIRONMENT
 USE WITH PHP 5.2 - IF ON 5.3 SEE THE DOWNGRADE
-SCRIPT IN THE resources DIRECTORY
+SCRIPT IN THE resources DIRECTORY AND USE SSL (443) AND 
+USE Application Firewall, limit IP Access or use only on VPN, etc.
 -----------------------------------
 
 On clean install of Ubuntu:
